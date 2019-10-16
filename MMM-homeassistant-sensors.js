@@ -151,7 +151,7 @@ Module.register("MMM-homeassistant-sensors", {
 		}
 
 		var displayValue = typeof(displayValues) === "object" && displayValues[value]
-			? displayValues["value"]
+			? displayValues[value]
 			: value;
 
 		// Name
