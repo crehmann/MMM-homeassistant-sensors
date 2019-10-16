@@ -34,6 +34,7 @@ It is very simple to set up this module, a sample configuration looks like this:
 | -------------------- | ----------- |
 | `sensor`             | `entity_id` from Home Assistant. Please have a look at the states pages for the unique `entity_id` of your sensor |
 | `icons`              | Icons object for the on/off status of sensor. see: [MaterialDesignIcons](https://materialdesignicons.com/) |
+| `displayValues`      | Object to map values. You can e.g. map the value 'on' to 'open' |
 
 ## icons option
 | Option               | Description |
@@ -71,12 +72,15 @@ modules: [{
 						}
 					]
 				}, {
-					sensor: "switch.reception_spot",
-					icons: [{
-							"state_off": "lightbulb-outline",
-							"state_on": "lightbulb-on-outline"
+					sensor: "group.livingroom_windows",                                                                                                                          icons: [{}
+						"state_on": "checkbox-blank-outline",
+						"state_off": "checkbox-intermediate",
 						}
-					]
+					],
+					displayValues: {
+						"on": "open",
+						"off": "closed"
+					} 
 				}
 			]
 
