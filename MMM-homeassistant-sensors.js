@@ -49,17 +49,18 @@ Module.register("MMM-homeassistant-sensors", {
 				for (var i = 0; i < values.length; i++) {
 					var icons = values[i].icons[0];
 					var sensor = values[i].sensor;
+					var displayValues  = values[i].displayValues;
 					var val = this.getValue(data, sensor);
 					var name = this.getName(data, sensor);
 					var unit = this.getUnit(data, sensor);
 					if (val) {
-						tableElement.appendChild(this.addValue(name, val, unit, icons));
+						tableElement.appendChild(this.addValue(name, val, unit, icons, displayValues));
 					}
 				}
 			} else {
 				for (var key in data) {
 					if (data.hasOwnProperty(key)) {
-						tableElement.appendChild(this.addValue(key, data[key], "", ""));
+						tableElement.appendChild(this.addValue(key, data[key], "", "", ""));
 					}
 				}
 			}
@@ -98,7 +99,7 @@ Module.register("MMM-homeassistant-sensors", {
 		}
 		return null;
 	},
-	addValue: function (name, value, unit, icons) {
+	addValue: function (name, value, unit, icons, displayValues) {
 		var newrow,
 		newText,
 		newCell;
@@ -148,6 +149,11 @@ Module.register("MMM-homeassistant-sensors", {
 				}
 			}
 		}
+
+		var displayValue = typeof(displayValues) === "object" && displayValues[value]
+			? displayValues["value"]
+			: value;
+
 		// Name
 		newCell = newrow.insertCell(1);
 		newText = document.createTextNode(name);
@@ -155,7 +161,7 @@ Module.register("MMM-homeassistant-sensors", {
 		// Value
 		newCell = newrow.insertCell(2);
 		newCell.className = "align-right"
-			newText = document.createTextNode(value);
+			newText = document.createTextNode(displayValue);
 		newCell.appendChild(newText);
 		// Unit
 		newCell = newrow.insertCell(3);
